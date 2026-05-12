@@ -289,7 +289,7 @@ export default function App() {
     }));
     setConfetti(prev => [...prev, ...pieces]);
     setTimeout(() => setConfetti(prev => prev.filter(p => !pieces.find(pp => pp.id === p.id))), 6000);
-  }, []);
+  }, [confettiColors, confettiShapes]);
 useEffect(() => {
   const timer = setTimeout(() => {
     launchConfetti(80);
