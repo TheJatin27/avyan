@@ -276,20 +276,39 @@ export default function App() {
   const { scrollYProgress } = useScroll({ container: containerRef });
 
   // Confetti colors & shapes
-  const confettiColors = [C.red, C.orange, C.yellow, C.green, C.teal, C.blue, C.pink, C.purple, C.white];
+  const launchConfetti = React.useCallback((count = 60) => {
+
+  const confettiColors = [
+    C.red,
+    C.orange,
+    C.yellow,
+    C.green,
+    C.teal,
+    C.blue,
+    C.pink,
+    C.purple,
+    C.white,
+  ];
+
   const confettiShapes = ["square", "circle", "ribbon"];
 
-  const launchConfetti = React.useCallback((count = 60) => {
-    const pieces = Array.from({ length: count }, (_, i) => ({
-      id: Date.now() + i,
-      x: rand(0, 100),
-      delay: rand(0, 1.5),
-      color: confettiColors[randInt(0, confettiColors.length)],
-      shape: confettiShapes[randInt(0, confettiShapes.length)],
-    }));
-    setConfetti(prev => [...prev, ...pieces]);
-    setTimeout(() => setConfetti(prev => prev.filter(p => !pieces.find(pp => pp.id === p.id))), 6000);
-  }, [confettiColors, confettiShapes]);
+  const pieces = Array.from({ length: count }, (_, i) => ({
+    id: Date.now() + i,
+    x: rand(0, 100),
+    delay: rand(0, 1.5),
+    color: confettiColors[randInt(0, confettiColors.length)],
+    shape: confettiShapes[randInt(0, confettiShapes.length)],
+  }));
+
+  setConfetti(prev => [...prev, ...pieces]);
+
+  setTimeout(() => {
+    setConfetti(prev =>
+      prev.filter(p => !pieces.find(pp => pp.id === p.id))
+    );
+  }, 6000);
+
+}, []);
 useEffect(() => {
   const timer = setTimeout(() => {
     launchConfetti(80);
