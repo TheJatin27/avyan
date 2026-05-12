@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import song from "./song.mp3";
 // ── Palette ──────────────────────────────────────────────────────────────────
 const C = {
   red:    "#FF3B30",
@@ -273,6 +274,7 @@ export default function App() {
   const [rsvpDone, setRsvpDone] = useState(false);
   const [showFireworks, setShowFireworks] = useState(false);
   const containerRef = useRef(null);
+  const audioRef = useRef(null);
   const { scrollYProgress } = useScroll({ container: containerRef });
 
   // Confetti colors & shapes
@@ -317,6 +319,31 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, [launchConfetti]);
 
+useEffect(() => {
+
+  const audio = audioRef.current;
+
+  if (audio) {
+
+    const tryPlay = async () => {
+      try {
+        await audio.play();
+
+        setTimeout(() => {
+          audio.muted = false;
+          audio.volume = 0.6;
+        }, 300);
+
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    tryPlay();
+  }
+
+}, []);
+
   const handleRSVP = () => {
     setRsvpDone(true);
     setShowFireworks(true);
@@ -349,8 +376,17 @@ useEffect(() => {
   const scrollIndicatorWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <div style={{ width: "100%", maxWidth: 420, margin: "0 auto", position: "relative", fontFamily: "'Nunito', sans-serif", background: "#0a0a1a", minHeight: "100vh" }}>
 
+    <div style={{ width: "100%", maxWidth: 420, margin: "0 auto", position: "relative", fontFamily: "'Nunito', sans-serif", background: "#0a0a1a", minHeight: "100vh" }}>
+ <audio
+  ref={audioRef}
+  autoPlay
+  loop
+  muted
+  playsInline
+>
+  <source src={song} type="audio/mp3" />
+</audio>
       {/* Google Fonts */}
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Nunito:wght@400;600;700;800;900&display=swap');`}</style>
 
