@@ -772,7 +772,6 @@ useEffect(() => {
               {[
                 ["🎂", "Cake cutting at 6:30 PM"],
                 ["🎵", "CoComelon songs & fun"],
-                ["🎁", "Gifts are welcome!"],
                 ["📸", "Photo booth & memories"],
                 ["🍽️", "Dinner will be served"],
                 ["👶", "Kids are most welcome!"],
