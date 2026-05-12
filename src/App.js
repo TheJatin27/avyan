@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValue, animate } from "framer-motion";
-
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 // ── Palette ──────────────────────────────────────────────────────────────────
 const C = {
   red:    "#FF3B30",
@@ -280,7 +279,7 @@ export default function App() {
   const confettiColors = [C.red, C.orange, C.yellow, C.green, C.teal, C.blue, C.pink, C.purple, C.white];
   const confettiShapes = ["square", "circle", "ribbon"];
 
-  const launchConfetti = (count = 60) => {
+  const launchConfetti = React.useCallback((count = 60) => {
     const pieces = Array.from({ length: count }, (_, i) => ({
       id: Date.now() + i,
       x: rand(0, 100),
@@ -290,11 +289,14 @@ export default function App() {
     }));
     setConfetti(prev => [...prev, ...pieces]);
     setTimeout(() => setConfetti(prev => prev.filter(p => !pieces.find(pp => pp.id === p.id))), 6000);
-  };
-
-  useEffect(() => {
-    setTimeout(() => launchConfetti(80), 800);
   }, []);
+useEffect(() => {
+  const timer = setTimeout(() => {
+    launchConfetti(80);
+  }, 800);
+
+  return () => clearTimeout(timer);
+}, [launchConfetti]);
 
   const handleRSVP = () => {
     setRsvpDone(true);
