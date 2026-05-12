@@ -622,7 +622,7 @@ useEffect(() => {
                   📅
                 </motion.div>
                 <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "rgba(255,255,255,0.75)", textTransform: "uppercase" }}>Date</div>
-                <div style={{ fontFamily: "'Bubblegum Sans', cursive", fontSize: 20, color: "white", lineHeight: 1.2, marginTop: 3 }}>25th May<br/>2025</div>
+                <div style={{ fontFamily: "'Bubblegum Sans', cursive", fontSize: 20, color: "white", lineHeight: 1.2, marginTop: 3 }}>25th May<br/>2026</div>
                 <div style={{ fontSize: 12, color: "rgba(255,255,255,0.85)", marginTop: 4, fontWeight: 700 }}>Sunday 🌟</div>
               </motion.div>
 
